@@ -2,13 +2,11 @@ const fs = require('fs');
 const chalk = require('chalk');
 
 //Função responsável por adicionar uma nova tarefa
-const addTask = function(pId, pDescricao){
+const addTask = (pId, pDescricao) => {
     const tasks = loadAllTasks(); //Listo um array de objetos...
     
     //Verifica se há algum objeto cadastrado com a descrição passada
-    const duplicatedTask = tasks.find(function(task){
-      return (task.id === pId) || (task.descricao === pDescricao)
-    })
+    const duplicatedTask = tasks.find((task) => (task.id === pId) || (task.descricao === pDescricao));
 
     let msgStatus;
 
@@ -28,7 +26,7 @@ const addTask = function(pId, pDescricao){
 }
 
 //Responsável por salvar a nova tarefa no formato json
-const saveTasks = function(task){
+const saveTasks = (task) => {
     const taskJSON = JSON.stringify(task);
     fs.writeFileSync('tasks.json', taskJSON);
 }
@@ -37,7 +35,7 @@ const saveTasks = function(task){
 /** Irá ler o arquivo json e em seguinda irá fazer o parse do arquivo
  * para o formato de objeto Javascript
  */
-const loadAllTasks = function(){
+const loadAllTasks = () => {
     try {
         const tasksBuffer = fs.readFileSync('tasks.json');
         return JSON.parse(tasksBuffer.toString())    
@@ -47,11 +45,10 @@ const loadAllTasks = function(){
 }
 
 //Responsável pela remoção/finalização da tarefa...
-const removeTask = function(pId){
+const removeTask = (pId) => {
     const aTasks = loadAllTasks();
-    const  aTasksFilter = aTasks.filter(function(aTasks){
-        return aTasks.id !== pId
-    })
+
+    const aTasksFilter = aTasks.filter((aTasks) => aTasks.id !== pId)
 
     saveTasks(aTasksFilter);
 
@@ -59,12 +56,10 @@ const removeTask = function(pId){
 }
 
 //Responsável por lê uma tarefa...
-const findTask = function(pId){
+const findTask = (pId) => {
     const aTasks = loadAllTasks();
     
-    const tasksFound = aTasks.find(function(aTasks){
-        return aTasks.id === pId
-    })
+    const tasksFound = aTasks.find((aTasks) => aTasks.id === pId)
 
     if (tasksFound !== undefined){
         return tasksFound;
@@ -75,10 +70,10 @@ const findTask = function(pId){
 }
 
 //Responsável por atualizar uma tarefa...
-const updateTask = function(pId, pStatus){
+const updateTask = (pId, pStatus) => {
     const tasks = loadAllTasks();
     
-    tasks.map(function(task){
+    tasks.find((task) => {
         if(task.id === pId){
             task.status = pStatus
         }
@@ -89,9 +84,6 @@ const updateTask = function(pId, pStatus){
     msgStatus = chalk.green.bold('Tarefa atualizada com sucesso!');
     console.log(msgStatus);
 }
-
-
-
 
 //Exporto as funções que serão acessadas por outros arquivos...
 module.exports = {

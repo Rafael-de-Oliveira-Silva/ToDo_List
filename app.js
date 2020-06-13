@@ -30,7 +30,7 @@ yargs.command(
                 type: 'string' 
            }
         },
-        handler: function(argv){
+        handler: (argv) => {
             inforMsg = chalk.green.inverse('***** Criando um nova tarefa... *****');
             console.log(inforMsg);
             task.addTask(argv.I, argv.D); 
@@ -50,7 +50,7 @@ yargs.command(
                 type: 'integer'
             }
         },
-        handler: function(argv){
+        handler: (argv) => {
             inforMsg = chalk.red.inverse('***** Removendo uma terefa... *****'); 
             console.log(inforMsg);
             task.removeTask(argv.I);
@@ -63,7 +63,7 @@ yargs.command(
     {
         command: 'list',
         describe: 'Lista todas as tarefa na ToDo List.',
-        handler: function(){
+        handler: () => {
             inforMsg = chalk.yellow.inverse('***** Listando todas as tarefa... *****');
             console.log(inforMsg);
             const allTask = task.loadAllTasks();
@@ -84,7 +84,7 @@ yargs.command(
                type: 'integer'
            } 
         },
-        handler: function(argv){
+        handler: (argv) => {
             inforMsg = chalk.magenta.inverse('***** Lendo uma tarefa... *****');
             console.log(inforMsg);
             const taskFound = task.findTask(argv.I);
@@ -110,7 +110,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function(argv){
+    handler: (argv) => {
         inforMsg = chalk.blue.inverse('***** Atualizando uma tarefa... *****');
         console.log(inforMsg);
         task.updateTask(argv.I, argv.S);
@@ -118,12 +118,4 @@ yargs.command({
 
 })
 
-
-
-
-
-
 yargs.parse();
-
-
-
